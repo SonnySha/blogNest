@@ -31,22 +31,22 @@ export class BlogControllerController {
 
     @Post('/createArticle')
     postArticle(@Body() body): string {
-        fire.database().ref("article").push({ 'title': '2eme Article', 'content': body.message })
+        fire.database().ref("article").push({ 'title': body.title, 'content': body.message })
         return body.message;
     }
 
     @Post('/updateArticle/:idArticle')
     updateArticle(@Body() body, @Param('id') idArticle: string): string {
-        firebase.database().ref('article/' + '-MOW55JuUdgiTeScWO7c').set({
+        firebase.database().ref('article/' + idArticle).set({
             title: 'titre modifié',
             content: 'contenu modifié'
         });
         return 'update';
     }
 
-    @Get('/removeArticle')
-    removeArticle(): string {
-        fire.database().ref("article").child('-MOW55JuUdgiTeScWO7c').remove();
+    @Get('/removeArticle/:idArticle')
+    removeArticle(@Param('id') idArticle: string): string {
+        fire.database().ref("article").child(idArticle).remove();
         return "remove";
     }
 
