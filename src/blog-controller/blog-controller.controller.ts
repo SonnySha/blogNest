@@ -38,8 +38,8 @@ export class BlogControllerController {
     @Post('/updateArticle/:idArticle')
     updateArticle(@Body() body, @Param('id') idArticle: string): string {
         firebase.database().ref('article/' + '-MOW55JuUdgiTeScWO7c').set({
-            0: 'updateil',
-            1: 'rtrtrtrt'
+            title: 'titre modifié',
+            content: 'contenu modifié'
         });
         return 'update';
     }
