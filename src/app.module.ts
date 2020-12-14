@@ -4,13 +4,12 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlogControllerController } from './blog-controller/blog-controller.controller';
+import { BlogService } from './blog/blog.service';
 
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal: true,
-  })],
+  imports: [ConfigModule.forRoot({})],
   controllers: [AppController, BlogControllerController],
-  providers: [AppService],
+  providers: [AppService, BlogService],
 })
 export class AppModule { }
