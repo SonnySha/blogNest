@@ -10,9 +10,11 @@ import { ConfigService } from '@nestjs/config';
 // Import firebase-admin
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
   const configService: ConfigService = app.get(ConfigService);
 

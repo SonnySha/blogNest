@@ -4,6 +4,10 @@ import { Injectable, Get } from '@nestjs/common';
 
 import firebase from 'firebase';
 import 'firebase/database';
+import { PostDTO } from './Post.DTO';
+
+
+
 
 const fire = firebase.initializeApp({
     apiKey: 'AIzaSyA1n4Iwq3ohbs8JJdacDsAcFfU0SpJqk-g',
@@ -17,15 +21,21 @@ const fire = firebase.initializeApp({
 
 @Injectable()
 export class BlogService {
+
+
     getBlog(): string {
         return 'Hello le blog !!';
     }
 
+    // createArticle(title: string, content: string): string {
+    //     fire.database().ref("article").push({ 'title': title, 'content': content })
+    //     return "Article:" + title + " ajouté !";
+    // }
 
-
-    createArticle(title: string, content: string): string {
-        fire.database().ref("article").push({ 'title': title, 'content': content })
-        return "Article:" + title + " ajouté !";
+    createArticle(post: PostDTO): string {
+        fire.database().ref("article").push(post)
+        // fire.database().ref("article").push({ 'title': title, 'content': content })
+        return 'post';
     }
 
     getArticles(): any {
@@ -40,7 +50,10 @@ export class BlogService {
                     lstArticle.push({
                         id: key,
                         title: data[key].title,
-                        content: data[key].content
+                        content: data[key].content,
+                        picture: data[key].picture,
+                        rank: data[key].rank,
+                        enable: data[key].enable,
                     });
 
 
@@ -67,3 +80,5 @@ export class BlogService {
     }
 
 }
+
+
