@@ -11,14 +11,13 @@ export class PostDTO {
     @MinLength(30)
     content: string;
 
-    @IsFQDN()
     picture: string;
 
-    @Min(1)
-    @Max(5)
+    // @Min(1)
+    // @Max(5)
     rank: string;
 
-    @IsBoolean()
-    enable: boolean;
+    // @IsBoolean()
+    enable: string;
 
 }

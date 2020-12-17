@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlogControllerController } from './blog-controller/blog-controller.controller';
 import { BlogService } from './blog/blog.service';
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({

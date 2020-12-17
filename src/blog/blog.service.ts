@@ -33,8 +33,15 @@ export class BlogService {
     // }
 
     createArticle(post: PostDTO): string {
-        fire.database().ref("article").push(post)
-        // fire.database().ref("article").push({ 'title': title, 'content': content })
+        console.log(post);
+        // fire.database().ref("article").set(post)
+        fire.database().ref("article").push({
+            title: post.title,
+            content: post.content,
+            enable: post.enable,
+            rank: post.rank,
+            picture: post.picture
+        });
         return 'post';
     }
 
