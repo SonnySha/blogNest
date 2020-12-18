@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Body, Get, Param, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, UseInterceptors, UploadedFile, BadRequestException, Req } from '@nestjs/common';
 import { FileInterceptor, MulterModule } from '@nestjs/platform-express';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 // import fire from "../fire"
@@ -20,8 +20,19 @@ export class BlogControllerController {
 
 
     @Get('')
-    readArticles(): any {
+    async readArticles(): Promise<any> {
         return this.blogService.getArticles();
+    }
+
+
+    @Get('/session')
+    findAll(@Req() request: Request) {
+        return req.session.visits = req.session.visits ? req.session.visits + 1 : 1;
+    }
+
+    @Get('/error')
+    async displayError(): Promise<any> {
+        return new BadRequestException('test message erreur');
     }
 
     @Post('/createArticle')
@@ -35,6 +46,7 @@ export class BlogControllerController {
         }),
     )
     postArticle(@Body() post: PostDTO, @UploadedFile() file): string {
+        console.log(file)
         post.picture = file.filename;
         return this.blogService.createArticle(post)
     }

@@ -42,6 +42,7 @@ export class BlogService {
             rank: post.rank,
             picture: post.picture
         });
+        console.log("Posté !")
         return 'post';
     }
 

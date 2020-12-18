@@ -11,12 +11,25 @@ import { ConfigService } from '@nestjs/config';
 import * as admin from 'firebase-admin';
 import { ServiceAccount } from 'firebase-admin';
 import { ValidationPipe } from '@nestjs/common';
+import * as helmet from 'helmet'
+import session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
+  app.use(helmet());
+
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+
   const configService: ConfigService = app.get(ConfigService);
+
 
 
   const adminConfig: ServiceAccount = {
